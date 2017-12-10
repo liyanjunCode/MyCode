@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>折纸导航</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 160px;
+		    margin: 30px auto;
+		    position: relative;
+		    -webkit-perspective:800px;
+		}
+		h2{
+			height: 40px;
+		    background: #F60;
+		    color: #fff;
+		    font: bold 16px/40px "微软雅黑";
+		    text-align: center;
+		    margin: 0;
+		    position: relative;
+		    z-index: 10;
+		}
+		span{
+			display: block;
+		    height: 30px;
+		    background: #9F0;
+		    font: 12px/30px "宋体";
+		    color: #fff;
+		    text-indent: 20px;
+		    box-shadow:inset 0 0 0 20px  rgba(0,0,0,1);
+		    transition:1s;
+		}
+		div {
+			width: 160px;
+			position: absolute;
+			top: 32px;
+			left: 0;
+		}
+		#box>div{
+			top: 40px;
+		}
+		input{
+			width: 80px;
+			height: 30px;
+			margin-left: -40px;
+			border-radius: 20px;
+			position: absolute;
+			top: 20px;
+			left: 50%;
+			background:#9F0;
+			outline: none;
+		}
+		#box div{
+			-webkit-transform-origin:top;
+			-moz-transform-origin:top;
+			-ms-transform-origin:top;
+			-o-transform-origin:top;
+			transform-origin:top;
+			-webkit-transform:preserve-3d;
+			-moz-transform:preserve-3d;
+			-ms-transform:preserve-3d;
+			-o-transform:preserve-3d;
+			transform:preserve-3d;
+			-webkit-transform:rotateX(-120deg);	
+			-moz-transform:rotateX(-120deg);	
+			-ms-transform:rotateX(-120deg);	
+			-o-transform:rotateX(-120deg);	
+			transform:rotateX(-120deg);	
+		}
+		#box .show{
+			-webkit-animation:open 2s;
+			-moz-animation:open 2s;
+			-ms-animation:open 2s;
+			-o-animation:open 2s;
+			animation:open 2s;
+			-webkit-transform:rotateX(0deg);
+			-moz-transform:rotateX(0deg);
+			-ms-transform:rotateX(0deg);
+			-o-transform:rotateX(0deg);
+			transform:rotateX(0deg);
+		}
+		#box .close{
+			-webkit-animation:close 0.8s;
+			-moz-animation:close 0.8s;
+			-ms-animation:close 0.8s;
+			-o-animation:close 0.8s;
+			animation:close 0.8s;
+			-webkit-transform:rotateX(-120deg);
+			-moz-transform:rotateX(-120deg);
+			-ms-transform:rotateX(-120deg);
+			-o-transform:rotateX(-120deg);
+			transform:rotateX(-120deg);
+		}
+		.show>span{ 
+			box-shadow:inset 0 0 0 20px  rgba(0,0,0,0);
+		}
+		@-webkit-keyframes close{
+			0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+			100%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+		}
+		@-moz-keyframes close{
+			0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+			100%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+		}
+		@-o-keyframes close{
+			0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+			100%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+		}
+		@keyframes close{
+			0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+			100%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+		}
+		@-webkit-keyframes open{
+			0%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+			25%{
+				-webkit-transform:rotateX(30deg);
+				-moz-transform:rotateX(30deg);
+				-ms-transform:rotateX(30deg);
+				-o-transform:rotateX(30deg);
+				transform:rotateX(30deg);
+			}
+			50%{
+				-webkit-transform:rotateX(-15deg);
+				-moz-transform:rotateX(-15deg);
+				-ms-transform:rotateX(-15deg);
+				-o-transform:rotateX(-15deg);
+				transform:rotateX(-15deg);
+			}
+			75%{
+				-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+			}
+			100%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+		}
+		@-moz-keyframes open{
+			0%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+			25%{
+				-webkit-transform:rotateX(30deg);
+				-moz-transform:rotateX(30deg);
+				-ms-transform:rotateX(30deg);
+				-o-transform:rotateX(30deg);
+				transform:rotateX(30deg);
+			}
+			50%{
+				-webkit-transform:rotateX(-15deg);
+				-moz-transform:rotateX(-15deg);
+				-ms-transform:rotateX(-15deg);
+				-o-transform:rotateX(-15deg);
+				transform:rotateX(-15deg);
+			}
+			75%{
+				-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+			}
+			100%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+		}
+		@-ms-keyframes open{
+			0%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+			25%{
+				-webkit-transform:rotateX(30deg);
+				-moz-transform:rotateX(30deg);
+				-ms-transform:rotateX(30deg);
+				-o-transform:rotateX(30deg);
+				transform:rotateX(30deg);
+			}
+			50%{
+				-webkit-transform:rotateX(-15deg);
+				-moz-transform:rotateX(-15deg);
+				-ms-transform:rotateX(-15deg);
+				-o-transform:rotateX(-15deg);
+				transform:rotateX(-15deg);
+			}
+			75%{
+				-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+			}
+			100%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+		}
+		@-o-keyframes open{
+			0%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+			25%{
+				-webkit-transform:rotateX(30deg);
+				-moz-transform:rotateX(30deg);
+				-ms-transform:rotateX(30deg);
+				-o-transform:rotateX(30deg);
+				transform:rotateX(30deg);
+			}
+			50%{
+				-webkit-transform:rotateX(-15deg);
+				-moz-transform:rotateX(-15deg);
+				-ms-transform:rotateX(-15deg);
+				-o-transform:rotateX(-15deg);
+				transform:rotateX(-15deg);
+			}
+			75%{
+				-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+			}
+			100%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+		}
+		@keyframes open{
+			0%{
+				-webkit-transform:rotateX(-120deg);
+				-moz-transform:rotateX(-120deg);
+				-ms-transform:rotateX(-120deg);
+				-o-transform:rotateX(-120deg);
+				transform:rotateX(-120deg);
+			}
+			25%{
+				-webkit-transform:rotateX(30deg);
+				-moz-transform:rotateX(30deg);
+				-ms-transform:rotateX(30deg);
+				-o-transform:rotateX(30deg);
+				transform:rotateX(30deg);
+			}
+			50%{
+				-webkit-transform:rotateX(-15deg);
+				-moz-transform:rotateX(-15deg);
+				-ms-transform:rotateX(-15deg);
+				-o-transform:rotateX(-15deg);
+				transform:rotateX(-15deg);
+			}
+			75%{
+				-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+			}
+			100%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<h2>标题文字</h2>
+		<div>
+			<span>选项1</span>
+			<div>
+				<span>选项2</span>
+				<div>
+					<span>选项3</span>
+					<div>
+						<span>选项4</span>
+						<div>
+							<span>选项5</span>
+							<div>
+								<span>选项6</span>
+								<div>
+									<span>选项7</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="button" value=" 点击"/>
+	<script type="text/javascript">
+		var obtn = document.getElementsByTagName("input")[0];
+		var oBox = document.getElementById("box");
+		var odiv = oBox.getElementsByTagName("div");
+		var onoff = true;
+		var otime = null;
+		var i;
+		obtn.onclick = function(){
+			if(otime){return}
+			if(onoff){
+				i = 0;
+				otime = setInterval(function(){
+					odiv[i].className="show";
+					i++;
+					if(i >= odiv.length){
+						clearInterval(otime);
+						otime = null;
+					}
+				},200)
+			}else{
+				i = odiv.length - 1;
+				otime = setInterval(function(){
+					odiv[i].className="close";
+					i--;
+					if(i < 0){
+						clearInterval(otime);
+						otime = null;
+					}
+				},200)
+			}
+			onoff = !onoff;
+		}
+	</script>
+</body>
+</html>
