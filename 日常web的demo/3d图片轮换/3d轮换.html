@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3d轮换</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 400px;
+			margin: 100px auto;
+			position: relative;
+			-webkit-perspective:800px;
+		}
+		ul{
+			list-style: none;
+			position: relative;
+			-webkit-transform-style:preserve-3d;
+			-moz-transform-style:preserve-3d;
+			-ms-transform-style:preserve-3d;
+			-o-transform-style:preserve-3d;
+			transform-style:preserve-3d;
+		}
+		li{
+			position: absolute;
+			top: 0;
+			left: 0;
+			-webkit-transform-origin:bottom;
+			-moz-transform-origin:bottom;
+			-ms-transform-origin:bottom;
+			-o-transform-origin:bottom;
+			transform-origin:bottom;
+			-webkit-transform:rotateX(180deg);
+			-moz-transform:rotateX(180deg);
+			-ms-transform:rotateX(180deg);
+			-o-transform:rotateX(180deg);
+			transform:rotateX(180deg);
+			opacity: 0;
+		}
+		img{
+			width: 400px;
+			height: 300px;
+		}
+		.Lobt, .Robt{
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			position: absolute;
+			top: 130px;
+			margin-top: -30px;
+			background: #009688;
+			border: 1px solid #78128a;
+			text-align: center;
+			line-height: 60px;
+		}
+		.Lobt{
+			left: -100px;
+		}
+		 .Robt{
+		 	right: -100px;
+		 }
+		 .show{
+		 	-webkit-animation:up 1s;
+		 	-moz-animation:up 1s;
+		 	-ms-animation:up 1s;
+		 	-o-animation:up 1s;
+		 	animation:up 1s;
+		 	-webkit-transform:rotateX(0deg);
+		 	-moz-transform:rotateX(0deg);
+		 	-ms-transform:rotateX(0deg);
+		 	-o-transform:rotateX(0deg);
+		 	transform:rotateX(0deg);
+		 	opacity: 1;
+		 }
+		 .hide{
+		 	-webkit-animation:down 0.5s;
+		 	-moz-animation:down 0.5s;
+		 	-ms-animation:down 0.5s;
+		 	-o-animation:down 0.5s;
+		 	animation:down 0.5s;
+		 	-webkit-transform:rotateX(180deg);
+		 	-moz-transform:rotateX(180deg);
+		 	-ms-transform:rotateX(180deg);
+		 	-o-transform:rotateX(180deg);
+		 	transform:rotateX(180deg);
+		 	opacity: 0;}
+		 @-webkit-keyframes up{
+		 	0%{
+				-webkit-transform:rotateX(180deg);
+				-moz-transform:rotateX(180deg);
+				-ms-transform:rotateX(180deg);
+				-o-transform:rotateX(180deg);
+				transform:rotateX(180deg);
+				opacity: 0;
+		 	}
+		 	50%{
+		 		-webkit-transform:rotateX(-25deg);
+				-moz-transform:rotateX(-25deg);
+				-ms-transform:rotateX(-25deg);
+				-o-transform:rotateX(-25deg);
+				transform:rotateX(-25deg);
+				opacity: 1;
+		 	}
+		 	60%{
+		 		-webkit-transform:rotateX(18deg);
+				-moz-transform:rotateX(18deg);
+				-ms-transform:rotateX(18deg);
+				-o-transform:rotateX(18deg);
+				transform:rotateX(18deg);
+		 	}
+		 	70%{
+		 		-webkit-transform:rotateX(-12deg);
+				-moz-transform:rotateX(-12deg);
+				-ms-transform:rotateX(-12deg);
+				-o-transform:rotateX(-12deg);
+				transform:rotateX(-12deg);
+		 	}
+		 	80%{
+		 		-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+		 	}
+		 	90%{
+		 		-webkit-transform:rotateX(-6deg);
+				-moz-transform:rotateX(-6deg);
+				-ms-transform:rotateX(-6deg);
+				-o-transform:rotateX(-6deg);
+				transform:rotateX(-6deg);
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 	}
+		 }
+		 @-moz-keyframes up{
+		 	0%{
+				-webkit-transform:rotateX(180deg);
+				-moz-transform:rotateX(180deg);
+				-ms-transform:rotateX(180deg);
+				-o-transform:rotateX(180deg);
+				transform:rotateX(180deg);
+				opacity: 0;
+		 	}
+		 	50%{
+		 		-webkit-transform:rotateX(-25deg);
+				-moz-transform:rotateX(-25deg);
+				-ms-transform:rotateX(-25deg);
+				-o-transform:rotateX(-25deg);
+				transform:rotateX(-25deg);
+				opacity: 1;
+		 	}
+		 	60%{
+		 		-webkit-transform:rotateX(18deg);
+				-moz-transform:rotateX(18deg);
+				-ms-transform:rotateX(18deg);
+				-o-transform:rotateX(18deg);
+				transform:rotateX(18deg);
+		 	}
+		 	70%{
+		 		-webkit-transform:rotateX(-12deg);
+				-moz-transform:rotateX(-12deg);
+				-ms-transform:rotateX(-12deg);
+				-o-transform:rotateX(-12deg);
+				transform:rotateX(-12deg);
+		 	}
+		 	80%{
+		 		-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+		 	}
+		 	90%{
+		 		-webkit-transform:rotateX(-6deg);
+				-moz-transform:rotateX(-6deg);
+				-ms-transform:rotateX(-6deg);
+				-o-transform:rotateX(-6deg);
+				transform:rotateX(-6deg);
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 	}
+		 }
+		@-ms-keyframes up{
+		 	0%{
+				-webkit-transform:rotateX(180deg);
+				-moz-transform:rotateX(180deg);
+				-ms-transform:rotateX(180deg);
+				-o-transform:rotateX(180deg);
+				transform:rotateX(180deg);
+				opacity: 0;
+		 	}
+		 	50%{
+		 		-webkit-transform:rotateX(-25deg);
+				-moz-transform:rotateX(-25deg);
+				-ms-transform:rotateX(-25deg);
+				-o-transform:rotateX(-25deg);
+				transform:rotateX(-25deg);
+				opacity: 1;
+		 	}
+		 	60%{
+		 		-webkit-transform:rotateX(18deg);
+				-moz-transform:rotateX(18deg);
+				-ms-transform:rotateX(18deg);
+				-o-transform:rotateX(18deg);
+				transform:rotateX(18deg);
+		 	}
+		 	70%{
+		 		-webkit-transform:rotateX(-12deg);
+				-moz-transform:rotateX(-12deg);
+				-ms-transform:rotateX(-12deg);
+				-o-transform:rotateX(-12deg);
+				transform:rotateX(-12deg);
+		 	}
+		 	80%{
+		 		-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+		 	}
+		 	90%{
+		 		-webkit-transform:rotateX(-6deg);
+				-moz-transform:rotateX(-6deg);
+				-ms-transform:rotateX(-6deg);
+				-o-transform:rotateX(-6deg);
+				transform:rotateX(-6deg);
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 	}
+		 }
+		@-o-keyframes up{
+		 	0%{
+				-webkit-transform:rotateX(180deg);
+				-moz-transform:rotateX(180deg);
+				-ms-transform:rotateX(180deg);
+				-o-transform:rotateX(180deg);
+				transform:rotateX(180deg);
+				opacity: 0;
+		 	}
+		 	50%{
+		 		-webkit-transform:rotateX(-25deg);
+				-moz-transform:rotateX(-25deg);
+				-ms-transform:rotateX(-25deg);
+				-o-transform:rotateX(-25deg);
+				transform:rotateX(-25deg);
+				opacity: 1;
+		 	}
+		 	60%{
+		 		-webkit-transform:rotateX(18deg);
+				-moz-transform:rotateX(18deg);
+				-ms-transform:rotateX(18deg);
+				-o-transform:rotateX(18deg);
+				transform:rotateX(18deg);
+		 	}
+		 	70%{
+		 		-webkit-transform:rotateX(-12deg);
+				-moz-transform:rotateX(-12deg);
+				-ms-transform:rotateX(-12deg);
+				-o-transform:rotateX(-12deg);
+				transform:rotateX(-12deg);
+		 	}
+		 	80%{
+		 		-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+		 	}
+		 	90%{
+		 		-webkit-transform:rotateX(-6deg);
+				-moz-transform:rotateX(-6deg);
+				-ms-transform:rotateX(-6deg);
+				-o-transform:rotateX(-6deg);
+				transform:rotateX(-6deg);
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 	}
+		 }
+		@keyframes up{
+		 	0%{
+				-webkit-transform:rotateX(180deg);
+				-moz-transform:rotateX(180deg);
+				-ms-transform:rotateX(180deg);
+				-o-transform:rotateX(180deg);
+				transform:rotateX(180deg);
+				opacity: 0;
+		 	}
+		 	50%{
+		 		-webkit-transform:rotateX(-25deg);
+				-moz-transform:rotateX(-25deg);
+				-ms-transform:rotateX(-25deg);
+				-o-transform:rotateX(-25deg);
+				transform:rotateX(-25deg);
+				opacity: 1;
+		 	}
+		 	60%{
+		 		-webkit-transform:rotateX(18deg);
+				-moz-transform:rotateX(18deg);
+				-ms-transform:rotateX(18deg);
+				-o-transform:rotateX(18deg);
+				transform:rotateX(18deg);
+		 	}
+		 	70%{
+		 		-webkit-transform:rotateX(-12deg);
+				-moz-transform:rotateX(-12deg);
+				-ms-transform:rotateX(-12deg);
+				-o-transform:rotateX(-12deg);
+				transform:rotateX(-12deg);
+		 	}
+		 	80%{
+		 		-webkit-transform:rotateX(8deg);
+				-moz-transform:rotateX(8deg);
+				-ms-transform:rotateX(8deg);
+				-o-transform:rotateX(8deg);
+				transform:rotateX(8deg);
+		 	}
+		 	90%{
+		 		-webkit-transform:rotateX(-6deg);
+				-moz-transform:rotateX(-6deg);
+				-ms-transform:rotateX(-6deg);
+				-o-transform:rotateX(-6deg);
+				transform:rotateX(-6deg);
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 	}
+		 }
+		@-webkit-keyframes down{
+		 	0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+				opacity: 1;
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(180deg);
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 		opacity: 0;
+		 	}
+		 }
+		 @-mozkeyframes down{
+		 	0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+				opacity: 1;
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(180deg);
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 		opacity: 0;
+		 	}
+		 }
+		 @-ms-keyframes down{
+		 	0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+				opacity: 1;
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(180deg);
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 		opacity: 0;
+		 	}
+		 }
+		 @-o-keyframes down{
+		 	0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+				opacity: 1;
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(180deg);
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 		opacity: 0;
+		 	}
+		 }
+		 @keyframes down{
+		 	0%{
+				-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+				opacity: 1;
+		 	}
+		 	100%{
+		 		-webkit-transform:rotateX(180deg);
+		 		-webkit-transform:rotateX(0deg);
+				-moz-transform:rotateX(0deg);
+				-ms-transform:rotateX(0deg);
+				-o-transform:rotateX(0deg);
+				transform:rotateX(0deg);
+		 		opacity: 0;
+		 	}
+		 }
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li class="show"><img src="img/img1.jpg"></li>
+			<li><img src="img/img2.jpg"></li>
+			<li><img src="img/img3.jpg"></li>
+			<li><img src="img/img4.jpg"></li>
+			<li><img src="img/img5.jpg"></li>
+		</ul>
+		<div class="Lobt">上一张</div>
+		<div class="Robt">下一张</div>
+	</div>
+	<script type="text/javascript">
+		var box = document.getElementById("box");
+		var oli = box.getElementsByTagName("li");
+		var Lbtn = box.getElementsByTagName("div")[0];
+		var Rbtn = box.getElementsByTagName("div")[1];
+		var i = 0;
+		var len = oli.length -1;
+		var old = i;
+		Lbtn.onclick = function(){
+			old = i;
+			oli[old].className = "hide";
+			i--;
+			if(i < 0){
+				i = len;
+			}
+			oli[i].className = "show";
+		}
+		Rbtn.onclick = function(){
+			old = i;
+			oli[old].className = "hide";
+			i++;
+			if(i > len){
+				i = 0;
+			}
+			oli[i].className = "show";
+		}
+	</script>
+</body>
+</html>
