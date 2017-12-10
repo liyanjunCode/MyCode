@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扇形导航</title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin:0;
+			background: #f9f9f9;
+		}
+		#nav{
+			width: 49px;
+			height: 49px;
+			position: relative;
+			margin:400px auto;
+		}
+		ul{
+			list-style: none;
+		}
+		#list li{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		#home{
+			position: relative;
+			z-index: 2;
+			-webkit-transition:all 0.5s;
+			-moz-transition:all 0.5s;
+			-ms-transition:all 0.5s;
+			-o-transition:all 0.5s;
+			transition:all 0.5s;
+			-moz-transform-origin:center center;
+			-ms-transform-origin:center center;
+			-o-transform-origin:center center;
+			-webkit-transform-origin:center center;
+			transform-origin:center center;
+		}
+	</style>
+</head>
+<body>
+	<div id="nav">
+		<div id="home"><img src="home.png"></div>
+		<ul id="list">
+			<li><img src="prev.png"></li>
+			<li><img src="open.png"></li>
+			<li><img src="clos.png"></li>
+			<li><img src="full.png"></li>
+			<li><img src="refresh.png"></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var home =document.getElementById("home");
+		var list =document.getElementById("list");
+		var oli =document.getElementsByTagName("li");
+		var onOff = true;
+		var len = oli.length;
+		home.onclick=function(){
+			if(onOff){
+				this.style.WebkitTransform="rotate(-360deg)";
+				for(var i=0; i<len;i++){
+					var End = Totl(150,90/4*i);
+					oli[i].style.WebkitTransition="0.5s "+ 50*i +"ms ";
+					oli[i].style.MozTransition="0.5s "+ 50*i +"ms ";
+					oli[i].style.MsTransition="0.5s "+ 50*i +"ms ";
+					oli[i].style.OTransition="0.5s "+ 50*i +"ms ";
+					oli[i].style.transition="0.5s "+ 50*i +"ms ";
+					oli[i].style.left=End.OL + "px";
+					oli[i].style.top=End.OT + "px";
+					oli[i].style.WebkitTransform="scale(1) rotate(-720deg)";
+					oli[i].style.MozTransform="scale(1) rotate(-720deg)";
+					oli[i].style.MsTransform="scale(1) rotate(-720deg)";
+					oli[i].style.OTransform="scale(1) rotate(-720deg)";
+					oli[i].style.transform="scale(1) rotate(-720deg)";
+				}
+			}else{
+				this.style.WebkitTransform="rotate(0deg)";
+				for(var i=0; i<len;i++){
+					oli[i].style.WebkitTransition="0.5s "+ 50*(oli.length-i-1) +"ms ";
+					oli[i].style.MozTransition="0.5s "+ 50*(oli.length-i-1) +"ms ";
+					oli[i].style.MsTransition="0.5s "+ 50*(oli.length-i-1) +"ms ";
+					oli[i].style.OTransition="0.5s "+ 50*(oli.length-i-1) +"ms ";
+					oli[i].style.transition="0.5s "+ 50*(oli.length-i-1) +"ms ";
+					oli[i].style.left=0;
+					oli[i].style.top=0;
+					oli[i].style.WebkitTransform="scale(1) rotate(0deg)";
+					oli[i].style.MozTransform="scale(1) rotate(0deg)";
+					oli[i].style.MsTransform="scale(1) rotate(0deg)";
+					oli[i].style.OTransform="scale(1) rotate(0deg)";
+					oli[i].style.transform="scale(1) rotate(0deg)";
+				}
+			}
+			onOff = !onOff;
+		}
+		var oldL="";
+		for(var i=0;i<len;i++){
+			oli[i].onclick = function(){
+				this.style.WebkitTransition="0.2s ";
+				this.style.MozTransition="0.2s ";
+				this.style.MsTransition="0.2s ";
+				this.style.OTransition="0.2s ";
+				this.style.transition="0.2s ";
+				this.style.WebkitTransform="scale(2) rotate(-720deg)";
+				this.style.MozTransform="scale(2) rotate(-720deg)";
+				this.style.MsTransform="scale(2) rotate(-720deg)";
+				this.style.OTransform="scale(2) rotate(-720deg)";
+				this.style.transform="scale(2) rotate(-720deg)";
+				this.style.opacity= 0.4;
+				end(this,fn);
+			}
+		}
+		function end(obj,fn){
+			obj.addEventListener('WebkitTransitionEnd',fn,false);
+			obj.addEventListener('transitionend',fn,false);
+		}
+		function removeEnd(obj,fn){
+			obj.removeEventListener('WebkitTransitionEnd',fn,false)
+			obj.removeEventListener('transitionend',fn,false)
+		}
+		function fn(){
+			this.style.WebkitTransform="scale(1) rotate(-720deg)";
+			this.style.opacity= 1;
+			removeEnd(this,fn);
+		}
+		function Totl(IR,deg){
+			return {
+				OL:-Math.sin(deg/180*Math.PI)*IR,
+				OT:-Math.cos(deg/180*Math.PI)*IR
+			}
+		}
+	</script>
+</body>
+</html>
