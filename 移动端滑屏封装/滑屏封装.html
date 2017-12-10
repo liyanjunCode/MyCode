@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no"/>
+	<script type="text/javascript" src="m.Tween2.js" ></script>
+	<title>滑屏</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body,html{
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+		#header{
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			background: black;
+			text-align: center;
+			color: white;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+		}
+		#footer{
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			background: black;
+			text-align: center;
+			color: white;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			z-index: 2;
+		}
+		#wraper{
+			position: absolute;
+			top: 40px;
+			bottom: 40px;
+			left: 0;
+			right: 0;
+		}
+		#list{
+			list-style: none;
+		}
+		#list li {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<div id="header">我是头部信息入口</div>
+	<div id="wraper">
+		<div id="list"></div>
+		<div id="scrollbar"></div>
+	</div>
+	<div id="footer">我是底部信息总结</div>
+	<script type="text/javascript">
+		document.addEventListener("touchstart",function(ev){ev.preventDefault()});
+		var wraper = document.querySelector("#wraper");		
+		function createList(){
+			var list = document.querySelector('#list');
+			var inner = "";
+			for(var i = 0; i < 50; i++){
+				inner += "<li>这是第"+i+"个li</li>"
+			}	
+			list.innerHTML = inner;
+		}
+		mScroll({
+			el:wraper,
+			offBar: false
+		})
+	 	createList();
+		function mScroll(init){
+			if(!init.el){
+				return;
+			}
+			var start = 0;
+			var starT =0;
+			var endT = 0;
+			var dis = 0;	
+			var lastY = 0;
+			var nowY = 0;
+			var starD = 0;
+			var endD = 0;
+			var disD = 0;
+			var sDis = 0;
+			var speed = 0;
+			var inner = init.el.children[0];
+			if(!init.offBar){
+				var scrollbar = document.createElement("div");
+				scrollbar.style.cssText = "width:6px;background:rgba(0,0,0,.5);position:absolute;right:0;top:0;border-radius:3px;opacity:0;transition:.3s opacity;";
+				init.el.appendChild(scrollbar);
+				var scale = init.el.clientHeight/inner.offsetHeight;
+			}
+			var maxTranslate = init.el.clientHeight - inner.offsetHeight;
+			css(inner,"translateZ",0.01);
+			inner.style.minHeight = "100%";
+			inner.addEventListener("touchstart",function(ev){
+				if(!init.offBar){
+					if(maxTranslate >= 0) {
+						scrollbar.style.display = "none";
+					} else {
+						scrollbar.style.display = "block";
+					}
+					scale = wraper.clientHeight/inner.offsetHeight;
+					scrollbar.style.height = wraper.clientHeight * scale + 'px';
+				}
+				maxTranslate = init.el.clientHeight - inner.offsetHeight;
+				start = css(this,"translateY");
+				starT = ev.changedTouches[0].pageY;
+				starD =new Date().getTime();
+				lastY = start;
+				disD = sDis = 0;
+				(init.scrollbar)||(scrollbar.style.opacity = 1);
+			})
+			inner.addEventListener("touchmove",function(ev){
+				endT = ev.changedTouches[0].pageY;
+				dis = start + endT - starT;
+				css(this,"translateY",dis);
+				endD =new Date().getTime();
+				disD = endD - starD;
+				nowY = dis;
+				sDis = nowY - lastY;
+				lastY = nowY;
+				starD = endD;
+			})
+			inner.addEventListener("touchend",function(ev){
+				var type = "easeOut"
+				speed = Math.round(sDis/disD*10);
+				speed = disD <= 0 ? 0 : speed;
+				var target = Math.round(speed*20 + css(this,"translateY"));
+				if(target > 0){
+					target = 0;
+					type = "backOut";
+				}else if(target < maxTranslate ){
+					target = maxTranslate;
+					type = "backOut";
+				}
+				MTween({
+					el:inner,
+					target: {translateY:target},
+					time: Math.round(Math.abs(target - css(inner,"translateY"))*2),
+					type: "easeOut",
+					callBack: function(){
+						(init.offBar) || (scrollbar.style.opacity = 0);
+					},
+					callIn: function(){
+						var translateY = css(inner,"translateY");
+						init.offBar || css(scrollbar,"translateY",-translateY*scale);
+					}
+				});
+			})
+		}
+	</script>
+</body>
+</html>
