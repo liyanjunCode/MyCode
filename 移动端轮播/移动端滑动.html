@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动轮播</title>
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+	<script>
+		(function(){
+			var html = document.documentElement;
+			var hWidth = html.getBoundingClientRect().width;
+			html.style.fontSize = hWidth/15 + "px";
+			document.addEventListener("touchstart",function(ev){
+				ev.preventDefault();
+			})
+		})()
+	</script>
+<style>
+body{
+	margin: 0;
+}
+html{
+	overflow: hidden;
+}
+.wrap{
+	height: 4.68rem;
+	position: relative;
+}
+.list{
+	padding: 0;
+	margin: 0;
+	width:400%;
+	position: absolute;
+	top:0;
+	left:0;
+	list-style: none;
+}
+.list li{
+	float: left;
+	width:15rem;
+}
+.list img{
+	width:15rem;
+	display: block;
+}
+nav{
+	width:15rem;
+	height: 10px;
+	position: absolute;
+	bottom:5px;
+	z-index: 1;
+	text-align:center;
+}
+nav a{
+	width:15px;
+	height: 15px;
+	display: inline-block;
+	background: red;
+	border-radius:50%;
+	vertical-align:top;
+}
+nav a.active{
+	background:#fff;
+}
+</style>
+</head>
+<body>
+	<section class="wrap">
+		<ul class="list">
+			<li>
+				<img src="img/img.jpg" alt="" />
+			</li>
+			<li>
+				<img src="img/img2.jpg" alt="" />
+			</li>
+			<li>
+				<img src="img/img3.jpg" alt="" />
+			</li>
+			<li>
+				<img src="img/img4.jpg" alt="" />
+			</li>
+		</ul>
+		<nav>
+			<a href="javascript:;" class="active"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+			<a href="javascript:;"></a>
+		</nav>
+	</section>
+	<script type="text/javascript">
+			var list = document.querySelector(".list");
+			var a = document.querySelectorAll("a");
+			var wrap =  document.querySelector(".wrap");
+			var Tw = wrap.clientWidth;
+			var aL = a.length;
+			var sX = 0;
+			var disX = 0;
+			var num = 0;
+			var n = 0;
+			list.innerHTML += list.innerHTML;
+			var liL = list.children.length;
+			list.style.width = liL * Tw + "px";
+			list.addEventListener('touchstart',function(ev){
+				var e = ev.changedTouches[0];
+				sX = e.pageX;
+				list.style.transition = 'none';
+				if(num == 0){
+					num = aL;
+					list.style.left = - Tw * num + "px";
+				}
+				if(- num == 2*aL - 1){
+					num = aL - 1;
+					list.style.left =  - Tw *num + "px";
+				}
+				disX = this.offsetLeft;
+			})
+			list.addEventListener('touchmove',function(ev){
+				var e = ev.changedTouches[0];
+				this.style.left = e.pageX - sX + disX + "px";
+			})
+			list.addEventListener('touchend',function(ev){
+				num = Math.round(this.offsetLeft/Tw);
+				list.style.transition = '0.5s'
+				this.style.left = Tw * num + "px";
+				a[n].className = "";
+				a[-num%a.length].className = 'active';
+				n = -num%a.length;
+			})
+	</script>
+</body>
+</html>
